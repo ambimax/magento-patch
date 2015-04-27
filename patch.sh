@@ -5,10 +5,12 @@ PROJECT_DIR=$PWD
 ########## get argument-values
 while getopts 'r:' OPTION ; do
 case "${OPTION}" in
-        r) PROJECT_DIR="${OPTARG}";;
+        r) PROJECT_DIR="${OPTARG}"; cd $PROJECT_DIR && pwd;;
         \?) echo; usage 1;;
     esac
 done
+
+"$( cd "$( dirname "${PROJECT_DIR}" )" && pwd )"
 
 if [ ! -f $PROJECT_DIR/app/Mage.php ]; then
     echo "Magento basedir not found. Please run ./patch.sh -r /path/to/magento/"
